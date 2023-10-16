@@ -39,4 +39,4 @@ def input_song(name):
         plt.show()
 
 
-input_song("Lucid Dreams")
+input_song("Die For You")
