@@ -8,7 +8,7 @@ def rank_vis(df, platform):
     Creates a scatter plot of the number of songs in playlists and how they
     rank in the charts based on the platform input
     :param platform: string that indicates platform
-    :return: plot
+    :return: plot (plotly scatter)
     """
     for idx in df.index:
         if df.loc[idx][f'in_{platform}_charts'] == 0:
