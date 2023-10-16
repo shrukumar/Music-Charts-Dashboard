@@ -3,6 +3,7 @@ import plotly.express as px
 import pandas as pd
 
 
+
 # step 1: define the app object
 app = Dash(__name__)
 
@@ -20,8 +21,8 @@ app.layout = html.Div([
     dcc.Input(
         id='input',
         placeholder='Enter text...',
-        type='text'
-
+        type='text',
+        value='',
    ),
 
 
@@ -35,6 +36,7 @@ app.layout = html.Div([
    Output("graph", "figure"),
    Input("input", "value")
 )
+
 def input_song(name):
 
 
@@ -47,15 +49,10 @@ def input_song(name):
 
    if name in keys_list:
 
-
        filtered_df = df.loc[df['track_name'] == f'{name}']
-
 
        # Get the row index associated with the key in the 'Name' column
        row_index = filtered_df.index[0]
-
-
-
 
        song_dict = {'Spotify': df.iloc[row_index]['in_spotify_charts'],
                     'Apple' :df.iloc[row_index]['in_apple_charts'],
@@ -68,8 +65,6 @@ def input_song(name):
 
 
        platforms = list(song_dict.keys())
-
-
        charts = int_values
 
 
@@ -78,7 +73,6 @@ def input_song(name):
        fig.update_layout(title = 'Rankings of Streaming Services', xaxis_title='Platforms', yaxis_title='Charts')
 
        return fig
-
 
 # step 4: Run the server
 app.run_server(debug=True)
