@@ -65,6 +65,25 @@ def create_hist(df, day_or_month, month_range):
 
     return fig
 
+def input_song(df, name):
+
+   # df = pd.read_csv('test.csv')
+
+   keys = list(df['track_name'])
+
+   if name in keys:
+       df = df.loc[df['track_name'] == f'{name}']
+
+   song_dict = {'Spotify': df.iloc[0]['in_spotify_charts'],
+                'Apple': df.iloc[0]['in_apple_charts'],
+                'Deezer': df.iloc[0]['in_deezer_charts'],
+                'Shazam': df.iloc[0]['in_shazam_charts']}
+
+   fig = px.bar(x=song_dict.keys(), y=song_dict.values())
+   fig.update_layout(title='Rankings of Streaming Services', xaxis_title='Platforms', yaxis_title='Charts')
+
+   return fig
+
 # step 1: define the app object
 app = Dash(__name__)
 
@@ -120,6 +139,18 @@ app.layout = html.Div(children=[
         ),
         dcc.Graph(id="graph2")
    ]),
+    html.Div([
+        html.H1(children='Chart Rankings for One Song'),
+        html.Div(children='''
+        Enter Song Name (please format exactly how it was released)'''),
+        dcc.Input(
+            id='input',
+            placeholder='Enter song name...',
+            type='text',
+            value=''
+        ),
+        dcc.Graph(id="graph3")
+   ]),
 ])
 
 
@@ -128,18 +159,21 @@ app.layout = html.Div(children=[
 @app.callback(
     Output("graph1", "figure"),
     Output("graph2", "figure"),
+    Output("graph3", "figure"),
     Input("dropdown", "value"),
     Input("radio", "value"),
-    Input("range", "value")
+    Input("range", "value"),
+    Input("input", "value")
 )
 
-def dash_vis(platform, day_or_month, month_range):
+def dash_vis(platform, day_or_month, month_range, name):
     # df = pd.read_csv('spotify-2023.csv')
     df = pd.read_csv('test.csv')
     fig1 = rank_vis(df, platform)
     fig2 = create_hist(df, day_or_month, month_range)
+    fig3 = input_song(df, name)
 
-    return fig1, fig2
+    return fig1, fig2, fig3
 
 
 # step 4: Run the server
