@@ -8,19 +8,19 @@ app = Dash(__name__)
 
 
 # step 2: define the layout
-app.layout = html.Div([
-   html.H4('Songs in Playlists vs Song Rankings'),
-   html.P('Select Streaming Platform:'),
-   dcc.Dropdown(
-       id="dropdown",
-       options=['apple', 'deezer','spotify'],
-       value='apple',
-       clearable=False
-   ),
-   dcc.Graph(id="graph")
+   app.layout = html.Div([
+       html.H4('Songs in Playlists vs Song Rankings'),
+       html.P('Select Streaming Platform:'),
+       dcc.Dropdown(
+           id="dropdown",
+           options=['apple', 'deezer','spotify'],
+           value='apple',
+           clearable=False
+       ),
+       dcc.Graph(id="graph")
 
 
-])
+   ])
 
 
 
