@@ -1,5 +1,5 @@
 This project was created to practice implementing a dashboard, created with Plotly Dash.
-For our dashboard, we chose to use a Spotify dataset from Kaggle to explore the relationship
+For our dashboard, we chose to use a dataset from Kaggle to explore the relationship
 between different music streaming platforms and the rankings of famous songs throughout
 2023. 
 
